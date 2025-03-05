@@ -435,7 +435,7 @@ $setVar[stats;$jsonStringify;$authorID]
 ```
 *remember to keep `$json[multi] there as we will use this for an XP Booster item later in this guide*
 ### Leveling Up
-Now that we have getting XP setup we are gonna use this simple `$if` block in the area designated in the last example to check if the user has enough xp to level up, and if they do it will remove the amount of xp it took to level up and add `1` level to the user.
+Now that we set up getting XP, we will use this simple `$if` block in the area designated in the last example to check if the user has enough XP to level up. If they do, it will remove the amount of XP required for the level-up and add `1` level to the user.
 ```
 $if[$json[xp]>=$json[lvlR]]
 $jsonSetString[xp;$calculate[$json[xp]-$json[lvlR]]]
@@ -454,13 +454,13 @@ Firstly we are going to make a slash command called `/use`
 ### Item Durability
 
 # JSON List Introduction
-This is the most advanced section of the guide we will be using `$textSplit` and `$splitText` in some parts of this section so it is advised to familiar yourself with these before going fowards. If you have already used these functions before or just simply dont care we will start off with how to create a JSON List.
-### Using a JSON List to Store User Warnings
-The first step to creating a Json List is making a variable for it, we are going to name this variable `warnings` and set the value of it to `{"warns":"0"}` now that you have that sorted we are going to make a command to warn a user. <br>
-The way a JSON List works is each warning is marked with a number `1, 2, 3, 4, etc..` and the value `{"warns":"0"}` we added before we tally how many warns there is. We then make a `/check-warns <user` command that will be able to display 1 warning per page which will be explained after `/warn`.
-### /warn
-Now firstly we will need to make a command called `warn` add to `required` options one option will be `user` set as a user option, and our second option is `reason` set as a text option. <br>
-We will now make this simple command that will add a warn to the user using our JSON List.
+This is the most advanced section of the guide. We will be using `$textSplit` and `$splitText` in some parts of this section, so it is advised to familiarize yourself with them before moving forward. We will start off with how to create a JSON List.  
+### Using a JSON List to Store User Warnings  
+The first step to creating a JSON List is making a variable for it. We are going to name this variable `warnings` and set its value to `{"warns":"0"}`. Now that you have that sorted, we are going to create a command to warn a user. <br>
+The way a JSON List works is that each warning is marked with a number (`1, 2, 3, 4, etc.`), and the value `{"warns":"0"}` we added before helps us tally how many warnings there are. We will then create a `/check-warns <user>` command that will be able to display one warning per page, which will be explained after `/warn`.  
+### /warn  
+First, we need to create a command called `warn`. Add two `required` options: the first option should be `user`, set as a user input, and the second option should be `reason`, set as a text input. <br>
+We will now create a simple command that will add a warning to the user using our JSON List.
 ```
 $jsonParse[$getVar[warnings;$message[user]]]
 $jsonSetString[warns;$calculate[$json[warns]+1]]
@@ -500,7 +500,7 @@ $if[$var[pages]>1] $addButton[no;next-$authorID;>;danger;no;]
 $else $addButton[no;next-$authorID;>;danger;yes;]
 $endif
 ```
-Now that we have made this we need to add responses to our previous page and next page buttons that will allow people to move through the users warning history, Firstly we will start with our `next-$authorID` button by making a new command with the trigger as `$onInteraction` and in this place this code.
+Now that we have made this we need to add responses to our previous page and next page buttons that will allow people to move through the users warning history. Consequently, we will start with our `next-$authorID` button by making a new command with `$onInteraction` as the trigger and in this place this code.
 ```
 $nomention
 $if[$customID==next-$authorID]
